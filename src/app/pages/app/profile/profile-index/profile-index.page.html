@@ -1,0 +1,14 @@
+<app-app-header title="Perfil"></app-app-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <app-profile-change-picture [user]="user" (update)="updateProfile($event)"></app-profile-change-picture>
+  <app-profile-change-info [user]="user" (update)="updateProfile($event)"></app-profile-change-info>
+</ion-content>
+
+<ion-toast
+  [isOpen]="isToastOpen"
+  [message]="toastMessage"
+  position="top"
+  [duration]="2000"
+  (didDismiss)="setToastOpen(false)"
+></ion-toast>

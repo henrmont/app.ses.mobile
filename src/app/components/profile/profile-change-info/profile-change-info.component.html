@@ -1,0 +1,53 @@
+<div style="display: flex; flex-direction: column; align-items: center; gap: 10px; margin-top: 20px;">
+  <span style="font-size: 18px;">{{ user.name }}</span>
+  <span style="font-size: 14px;">{{ user.email }}</span>
+</div>
+<ion-card style="margin-top: 20px;" color="tertiary">
+  <ion-card-header>
+    <ion-card-title>Informações pessoais</ion-card-title>
+  </ion-card-header>
+
+  <ion-card-content>
+    <ion-list>
+      <ion-item lines="none" color="tertiary">
+        <ion-label style="display: flex; flex-direction: column;">
+          <span style="font-size: 14px;">Nome</span>
+          <span style="font-size: 16px; font-weight: 600;">{{ user.name }}</span>
+        </ion-label>
+      </ion-item>
+      <!-- <ion-item lines="none" color="tertiary">
+        <ion-label style="display: flex; flex-direction: column;">
+          <span style="font-size: 14px;">Bio</span>
+          @if (user.bio) {
+            <span style="font-size: 16px; font-weight: 600;">{{ user.bio }}</span>
+          } @else {
+            <span style="font-size: 12px;">Nenhuma informação cadastrada</span>
+          }
+        </ion-label>
+      </ion-item> -->
+    </ion-list>
+  </ion-card-content>
+  <div style="display: flex; justify-content: flex-end; width: 100%;">
+    <ion-button fill="clear" (click)="setModalOpen(true)">Editar informações</ion-button>
+    <ion-modal #modal [isOpen]="isModalOpen">
+      <ng-template>
+        <ion-header>
+          <ion-toolbar color="primary">
+            <ion-buttons slot="start">
+              <ion-button (click)="setModalOpen(false)">
+                <ion-icon slot="icon-only" name="arrow-back-sharp"></ion-icon>
+              </ion-button>
+            </ion-buttons>
+            <ion-title>Editar Informações</ion-title>
+          </ion-toolbar>
+        </ion-header>
+        <ion-content class="ion-padding">
+          <form [formGroup]="formulario" (ngSubmit)="onSubmit()" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px; width: 100%;">
+            <ion-input type="text" label="Nome" label-placement="floating" formControlName="name" style="border-bottom: 1px solid rgb(220,220,220);"></ion-input>
+            <ion-button type="submit" expand="block" style="width: 100%;" [disabled]="formulario.invalid || formulario.pristine">Atualizar informações</ion-button>
+          </form>
+        </ion-content>
+      </ng-template>
+    </ion-modal>
+  </div>
+</ion-card>

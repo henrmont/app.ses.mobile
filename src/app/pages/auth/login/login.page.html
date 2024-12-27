@@ -1,0 +1,32 @@
+<ion-content [fullscreen]="true">
+  <div style="width: 100vw; height: 100vh; display: flex; flex-direction: column; gap: 50px; align-items: center; justify-content: center; padding: 20px; background-image: url(assets/img/bg-abstract.jpg); background-size: cover; background-position: center center;">
+    <form [formGroup]="formulario" (ngSubmit)="onSubmit()" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px; width: 90vw; background-color: rgba(230,230,230,0.9); padding: 10px; border-radius: 10px; box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;">
+      <ion-input type="email" label="Email" label-placement="floating" formControlName="email" style="border-bottom: 1px solid gray;"></ion-input>
+      <ion-input type="password" label="Senha" label-placement="floating" formControlName="password" style="border-bottom: 1px solid gray;">
+        <!-- <ion-input-password-toggle slot="end"></ion-input-password-toggle> -->
+      </ion-input>
+      <div style="width: 100%;">
+        <ion-button expand="block" fill="solid" type="submit" [disabled]="formulario.invalid">Entrar</ion-button>
+      </div>
+      <div>
+        <ion-nav-link router-direction="forward" [component]="recover">
+          <span>Esqueceu a senha? <a>Clique aqui</a></span>
+        </ion-nav-link>
+      </div>
+      <div style="width: 100%;">
+        <ion-button expand="block" fill="solid" color="light" disabled>
+          <ion-icon src="assets/icon/icon-mtlogin.svg" style="margin-right: 10px;"></ion-icon>
+          Continuar com mtlogin
+        </ion-button>
+      </div>
+    </form>
+  </div>
+</ion-content>
+
+<ion-toast
+  [isOpen]="isToastOpen"
+  [message]="toastMessage"
+  position="top"
+  [duration]="2000"
+  (didDismiss)="setToastOpen(false)"
+></ion-toast>

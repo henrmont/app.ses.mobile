@@ -1,0 +1,64 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-segment value="active" [swipeGesture]="false">
+      <ion-segment-button value="active" content-id="active">
+        <ion-label>Conversas</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="pending" content-id="pending">
+        <ion-label>Pendente</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+    <ion-buttons slot="end">
+      <ion-menu-button class="primary"></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button>
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <ion-segment-view>
+
+    <ion-segment-content id="active">
+      <ion-list lines="full">
+        @for (item of chats; track $index) {
+          @defer (on viewport) {
+            <app-chat-item [chat]="item"></app-chat-item>
+          } @placeholder {
+            <div></div>
+          }
+        } @empty {
+          <div style="width: 100%; margin-top: 20px; display: flex; flex-direction: column; align-items: center;">
+            <ion-icon name="eye-off-outline" color="medium" style="font-size: 100px;"></ion-icon>
+            <h3>Nenhum resultado!</h3>
+          </div>
+        }
+      </ion-list>
+    </ion-segment-content>
+
+    <ion-segment-content id="pending">
+      <ion-list lines="full">
+        @for (item of pendingChats; track $index) {
+          @defer (on viewport) {
+            <app-chat-item [chat]="item"></app-chat-item>
+          } @placeholder {
+            <div></div>
+          }
+        } @empty {
+          <div style="width: 100%; margin-top: 20px; display: flex; flex-direction: column; align-items: center;">
+            <ion-icon name="eye-off-outline" color="medium" style="font-size: 100px;"></ion-icon>
+            <h3>Nenhum resultado!</h3>
+          </div>
+        }
+      </ion-list>
+    </ion-segment-content>
+
+  </ion-segment-view>
+
+</ion-content>

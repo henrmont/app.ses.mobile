@@ -1,0 +1,55 @@
+<input type="file" name="picture" #picture style="display: none;" (change)="fileChangeEvent($event); setModalOpen(true)" />
+<div style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
+  @if (user.picture) {
+    <div [style]="'width: 150px; height: 150px; border-radius: 100%; background-image: url('+user.picture+'); background-size: cover; display: flex; justify-content: flex-end; align-items: flex-end; box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;'">
+      <ion-fab>
+        <ion-fab-button size="small" (click)="selectPicture()">
+          <ion-icon name="camera-outline"></ion-icon>
+        </ion-fab-button>
+      </ion-fab>
+    </div>
+  } @else {
+    <div style="width: 150px; height: 150px; border-radius: 100%; background-image: url(https://ionicframework.com/docs/img/demos/avatar.svg); background-size: cover; display: flex; justify-content: flex-end; align-items: flex-end; box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;">
+      <ion-fab>
+        <ion-fab-button size="small" (click)="selectPicture()">
+          <ion-icon name="camera-outline"></ion-icon>
+        </ion-fab-button>
+      </ion-fab>
+    </div>
+  }
+
+  <ion-modal #modal [isOpen]="isModalOpen">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar color="primary">
+          <ion-buttons slot="start">
+            <ion-button (click)="setModalOpen(false)">
+              <ion-icon slot="icon-only" name="arrow-back-sharp"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+          <ion-title>Imagem do perfil</ion-title>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding">
+        <form [formGroup]="formulario" (ngSubmit)="onSubmit()" style="display: flex; flex-direction: column; justify-content: space-between;">
+          <image-cropper
+            [imageChangedEvent]="imageChangedEvent"
+            [maintainAspectRatio]="true"
+            [hideResizeSquares]="true"
+            output="base64"
+            [aspectRatio]="1 / 1"
+            format="png"
+            [resizeToWidth]="300"
+            [resizeToHeight]="300"
+            (imageCropped)="imageCropped($event)"
+            (imageLoaded)="imageLoaded($event)"
+            (cropperReady)="cropperReady()"
+            (loadImageFailed)="loadImageFailed()"
+          ></image-cropper>
+
+          <ion-button expand="block" type="submit" [disabled]="formulario.invalid">Alterar imagem do perfil</ion-button>
+        </form>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+</div>

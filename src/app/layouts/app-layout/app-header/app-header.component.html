@@ -1,0 +1,13 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    @if (back) {
+      <ion-buttons slot="start">
+        <ion-back-button [defaultHref]="back"></ion-back-button>
+      </ion-buttons>
+    }
+    <ion-title>{{ title }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-menu-button class="primary"></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>

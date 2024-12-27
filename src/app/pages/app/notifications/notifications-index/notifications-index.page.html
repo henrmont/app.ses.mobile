@@ -1,0 +1,21 @@
+<app-app-header title="Notificações"></app-app-header>
+
+<ion-content [fullscreen]="true">
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <ion-list lines="full">
+    @for (item of notifications; track $index) {
+      @defer (on viewport) {
+        <app-notification-item [notification]="item" (removeNotificationEvent)="removeNotification($event)"></app-notification-item>
+      } @placeholder {
+        <div></div>
+      }
+    } @empty {
+      <div style="width: 100%; margin-top: 20px; display: flex; flex-direction: column; align-items: center;">
+        <ion-icon name="notifications-off-outline" color="medium" style="font-size: 100px;"></ion-icon>
+        <h3>Nenhuma notificação</h3>
+      </div>
+    }
+  </ion-list>
+</ion-content>
